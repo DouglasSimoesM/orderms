@@ -19,64 +19,16 @@ import java.util.List;
 
 
 @Service
-public class OrderService {
+public interface OrderService {
 
-    private final OrderRepository orderRepository;
-    private final MongoTemplate mongoTemplate;
+    void deletar(Long customerId);
 
-    public OrderService(OrderRepository orderRepository,
-                        MongoTemplate mongoTemplate) {
-        this.orderRepository = orderRepository;
-        this.mongoTemplate = mongoTemplate;
-    }
+    void save(OrderCreatedEvent event);
+    Page<OrderResponse> findAllByCustomerId(Long customerId, PageRequest pageRequest);
 
-    public void save(OrderCreatedEvent event) {
+    BigDecimal findTotalOnOrdersByCustomerId(Long customerId);
 
-        var entity = new OrderEntity();
+    BigDecimal getTotal(OrderCreatedEvent event);
 
-        entity.setOrderId(event.codigoPedido());
-        entity.setCustomerId(event.codigoCliente());
-        entity.setItems(getOrderItems(event));
-        entity.setTotal(getTotal(event));
-
-        orderRepository.save(entity);
-
-    }
-
-    public Page<OrderResponse> findAllByCustomerId(Long customerId, PageRequest pageRequest) {
-        var orders = orderRepository.findAllByCustomerId(customerId, pageRequest);
-
-        return orders.map(OrderResponse::fromEntity);
-    }
-
-    public BigDecimal findTotalOnOrdersByCustomerId(Long customerId) {
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.match(Criteria.where("customerId").is(customerId)),
-                Aggregation.group().sum("total").as("total")
-        );
-
-        AggregationResults<Document> response = mongoTemplate.aggregate(aggregation, "tb_orders", Document.class);
-
-        Document result = response.getUniqueMappedResult();
-
-        if (result != null && result.get("total") != null) {
-            return new BigDecimal(result.get("total").toString());
-        } else {
-            return BigDecimal.ZERO;
-        }
-    }
-
-    private BigDecimal getTotal(OrderCreatedEvent event) {
-        return event.itens()
-                .stream()
-                .map(i -> i.preco().multiply(BigDecimal.valueOf(i.quantidade())))
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
-    }
-
-    private static List<OrderItem> getOrderItems(OrderCreatedEvent event) {
-        return event.itens().stream()
-                .map(i -> new OrderItem(i.produto(), i.quantidade(), i.preco()))
-                .toList();
-    }
+    List<OrderItem> getOrderItems(OrderCreatedEvent event);
 }

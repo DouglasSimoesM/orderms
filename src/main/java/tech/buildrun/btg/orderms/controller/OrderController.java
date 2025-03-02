@@ -2,27 +2,25 @@ package tech.buildrun.btg.orderms.controller;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.buildrun.btg.orderms.controller.dto.ApiResponse;
 import tech.buildrun.btg.orderms.controller.dto.OrderResponse;
 import tech.buildrun.btg.orderms.controller.dto.PaginationResponse;
-import tech.buildrun.btg.orderms.service.OrderService;
+
 
 import java.util.Map;
 
 @RestController
+@RequestMapping("/customers")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final tech.buildrun.btg.orderms.service.impl.OrderServiceImpl orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(tech.buildrun.btg.orderms.service.impl.OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 
-    @GetMapping("/customers/{customerId}/orders")
+    @GetMapping("/{customerId}/orders")
     public ResponseEntity<ApiResponse<OrderResponse>> listOrders(@PathVariable("customerId") Long customerId,
                                                                  @RequestParam(name = "page", defaultValue = "0") Integer page,
                                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize){
@@ -35,5 +33,11 @@ public class OrderController {
                 pageResponse.getContent(),
                 PaginationResponse.fromPage(pageResponse)
         ));
+    }
+
+    @DeleteMapping("/{codigoPedido}")
+    public ResponseEntity<Void> delete(@PathVariable Long codigoPedido){
+        orderService.deletar(codigoPedido);
+        return ResponseEntity.ok().build();
     }
 }
