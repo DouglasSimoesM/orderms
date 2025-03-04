@@ -1,6 +1,7 @@
 package tech.buildrun.btg.orderms.service.impl;
 
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final MongoTemplate mongoTemplate;
 
+    @Autowired
     public OrderServiceImpl(OrderRepository orderRepository,
                         MongoTemplate mongoTemplate) {
         this.orderRepository = orderRepository;

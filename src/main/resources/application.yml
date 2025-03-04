@@ -5,10 +5,3 @@ spring:
       database: ${DB_NAME}
       username: ${DB_USERNAME}
       password: ${DB_PASSWORD}
-
-
-  rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
