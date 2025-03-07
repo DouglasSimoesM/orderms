@@ -13,4 +13,4 @@ ENV APP_PROFILE=prod
 
 EXPOSE 8080
 
-CMD ["java", "-Dspring.profiles.active=${APP_PROFILE}", "-jar", "target/your-app.jar"]
+CMD ["java", "-Dspring.profiles.active=${APP_PROFILE}", "-jar", "target/orderms-0.0.1-SNAPSHOT.jar"]
