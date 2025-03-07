@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: mongodb+srv://douglassimoesm:12345@cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    username: douglassimoesm
+    password: 12345
+    jpa:
+    open-in-view: false
+    hibernate:
+    ddl-auto: validate
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
