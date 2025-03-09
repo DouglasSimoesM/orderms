@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_NAME}.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: mongodb+srv://douglassimoesm:12345@$Cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    username: douglassimoesm
+    password: 12345
     jpa:
     open-in-view: false
     hibernate:
