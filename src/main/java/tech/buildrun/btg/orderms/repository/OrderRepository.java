@@ -9,5 +9,6 @@ import tech.buildrun.btg.orderms.entity.OrderEntity;
 @Repository
 public interface OrderRepository extends MongoRepository<OrderEntity, Long> {
 
+    void deleteAllByCustomerId(Long customerId);
     Page<OrderEntity> findAllByCustomerId(Long customerId, PageRequest pageRequest);
 }

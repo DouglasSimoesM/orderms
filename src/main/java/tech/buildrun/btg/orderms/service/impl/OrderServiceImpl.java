@@ -7,9 +7,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.buildrun.btg.orderms.controller.dto.OrderResponse;
 import tech.buildrun.btg.orderms.entity.OrderEntity;
 import tech.buildrun.btg.orderms.entity.OrderItem;
+import tech.buildrun.btg.orderms.listener.OrderCreatedListener;
 import tech.buildrun.btg.orderms.listener.dto.OrderCreatedEvent;
 import tech.buildrun.btg.orderms.repository.OrderRepository;
 import tech.buildrun.btg.orderms.service.OrderService;
@@ -35,8 +37,9 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @Transactional
     public void deletar(Long customerId) {
-        orderRepository.deleteById(customerId);
+        orderRepository.deleteAllByCustomerId(customerId);
     }
 
     @Override

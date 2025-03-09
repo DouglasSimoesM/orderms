@@ -1,13 +1,19 @@
 package tech.buildrun.btg.orderms.controller;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.buildrun.btg.orderms.controller.dto.ApiResponse;
 import tech.buildrun.btg.orderms.controller.dto.OrderResponse;
 import tech.buildrun.btg.orderms.controller.dto.PaginationResponse;
+import tech.buildrun.btg.orderms.entity.OrderEntity;
+import tech.buildrun.btg.orderms.entity.OrderItem;
+import tech.buildrun.btg.orderms.listener.dto.OrderCreatedEvent;
 
 
+import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -35,9 +41,15 @@ public class OrderController {
         ));
     }
 
-    @DeleteMapping("/{codigoPedido}")
-    public ResponseEntity<Void> delete(@PathVariable Long codigoPedido){
-        orderService.deletar(codigoPedido);
+    @PutMapping("/{customerId}/orders")
+    public ResponseEntity<OrderCreatedEvent> atualizar(@RequestBody OrderCreatedEvent event) {
+        orderService.save(event);
+        return ResponseEntity.ok(event);
+    }
+
+    @DeleteMapping("/{customerId}/orders")
+    public ResponseEntity<Void> deleteAll(@PathVariable Long customerId){
+        orderService.deletar(customerId);
         return ResponseEntity.ok().build();
     }
 }

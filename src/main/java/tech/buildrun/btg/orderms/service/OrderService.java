@@ -24,6 +24,7 @@ public interface OrderService {
     void deletar(Long customerId);
 
     void save(OrderCreatedEvent event);
+
     Page<OrderResponse> findAllByCustomerId(Long customerId, PageRequest pageRequest);
 
     BigDecimal findTotalOnOrdersByCustomerId(Long customerId);
