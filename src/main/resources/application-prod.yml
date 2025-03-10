@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url: mongodb+srv://douglassimoesm:12345@$Cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-    username: douglassimoesm
-    password: 12345
+    url: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@$Cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     jpa:
     open-in-view: false
     hibernate:
     ddl-auto: validate
 
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
+    host: ${SPRING_RABBITMQ_HOST}
+    port: ${SPRING_RABBITMQ_PORT}
+    username: ${SPRING_RABBITMQ_USERNAME}
+    password: ${SPRING_RABBITMQ_PASSWORD}
