@@ -24,7 +24,7 @@ services:
     build: .
     container_name: myapp
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017/${DB_NAME}?retryWrites=true&w=majority
+      SPRING_DATA_MONGODB_URI: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017/Cluster0?retryWrites=true&w=majority
       SPRING_RABBITMQ_HOST: ${SPRING_RABBITMQ_HOST}
       SPRING_RABBITMQ_PORT: ${SPRING_RABBITMQ_PORT}
       SPRING_RABBITMQ_USERNAME: ${SPRING_RABBITMQ_USERNAME}
