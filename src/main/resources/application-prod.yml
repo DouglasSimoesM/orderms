@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-    url: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@$Cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    url: ${SPRING_DATA_MONGODB_URI}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     jpa:

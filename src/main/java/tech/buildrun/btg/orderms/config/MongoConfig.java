@@ -14,7 +14,7 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient() {
-        String connectionString = "mongodb+srv://douglassimoesm:12345@cluster0.rns3u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+        String connectionString = System.getenv("SPRING_DATA_MONGODB_URI");
 
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
